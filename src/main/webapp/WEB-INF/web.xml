@@ -1,10 +1,37 @@
 <web-app>
     <servlet>
-        <servlet-name>manager</servlet-name>
-        <servlet-class>Servlets.SessionManager</servlet-class>
+        <servlet-name>banglalink</servlet-name>
+        <servlet-class>Servlets.Banglalink</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>manager</servlet-name>
-        <url-pattern>/ussd</url-pattern>
+        <servlet-name>banglalink</servlet-name>
+        <url-pattern>/mybl</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>grameenphone</servlet-name>
+        <servlet-class>Servlets.GrameenPhone</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>grameenphone</servlet-name>
+        <url-pattern>/mygp</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>robi</servlet-name>
+        <servlet-class>Servlets.Robi</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>robi</servlet-name>
+        <url-pattern>/myrobi</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>teletalk</servlet-name>
+        <servlet-class>Servlets.Teletalk</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>teletalk</servlet-name>
+        <url-pattern>/mytele</url-pattern>
     </servlet-mapping>
 </web-app>
