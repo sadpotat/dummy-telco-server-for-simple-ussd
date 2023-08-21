@@ -1,53 +1,45 @@
 package Models;
 
+import Responses.XmlRobiRes;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 
 @JacksonXmlRootElement(localName = "XmlRobi")
 public class XmlRobi {
-//    @JacksonXmlProperty(localName = "transactionid")
+    @JacksonXmlProperty(localName = "transactionid")
     private String transactionId;
-//    @JacksonXmlProperty(localName = "paymentfrom")
+    @JacksonXmlProperty(localName = "paymentfrom")
     private String paymentFrom;
-//    @JacksonXmlProperty(localName = "paymentto")
+    @JacksonXmlProperty(localName = "topupacc")
     private String topUpAcc;
-//    @JacksonXmlProperty(localName = "amount")
-    private String amountt; // Getters and setters }
-    @JsonCreator
-    public XmlRobi( @JsonProperty("transactionid") String transactionid,
-                    @JsonProperty("paymentfrom") String paymentfrom,
-                    @JsonProperty("topupacc") String paymentto,
-                    @JsonProperty("amount") String amount) {
-//
-        transactionId = transactionid;
-        paymentFrom = paymentfrom;
-        topUpAcc = paymentto;
-        amountt = amount;
-    }
+    @JacksonXmlProperty(localName = "amount")
+    private String amountt;
+    private XmlRobiRes res;
 
-    public String getTransactionid() {
+    public String getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionid(String transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
-    public String getPaymentfrom() {
+    public String getPaymentFrom() {
         return paymentFrom;
     }
 
-    public void setPaymentfrom(String paymentFrom) {
+    public void setPaymentFrom(String paymentFrom) {
         this.paymentFrom = paymentFrom;
     }
 
-    public String getPaymentto() {
+    public String getTopUpAcc() {
         return topUpAcc;
     }
 
-    public void setPaymentto(String topUpAcc) {
+    public void setTopUpAcc(String topUpAcc) {
         this.topUpAcc = topUpAcc;
     }
 
@@ -57,6 +49,14 @@ public class XmlRobi {
 
     public void setAmountt(String amountt) {
         this.amountt = amountt;
+    }
+
+    public XmlRobiRes getRes() {
+        return res;
+    }
+
+    public void setRes(XmlRobiRes res) {
+        this.res = res;
     }
 
     public boolean hasNull() {

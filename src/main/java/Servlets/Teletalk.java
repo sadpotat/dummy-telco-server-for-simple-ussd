@@ -1,6 +1,7 @@
 package Servlets;
 
 import Controllers.RequestParsers;
+import Controllers.Responses;
 import Models.XmlTT;
 
 import javax.servlet.ServletException;
@@ -21,12 +22,6 @@ public class Teletalk extends HttpServlet {
         XmlTT rdata = RequestParsers.getXmlTeletalk(req, resp, out);
         if (rdata == null) return;
 
-        System.out.println(rdata.getTopUpId());
-        System.out.println(rdata.getSenderr());
-        System.out.println(rdata.getTargett());
-        System.out.println(rdata.getTopUp());
-
-        out.println("<out><response>Recharged Successfully</response></out>");
-        out.close();
+        Responses.sendXML(resp, out, rdata.getRes());
     }
 }

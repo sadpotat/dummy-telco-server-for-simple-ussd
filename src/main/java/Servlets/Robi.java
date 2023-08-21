@@ -1,6 +1,7 @@
 package Servlets;
 
 import Controllers.RequestParsers;
+import Controllers.Responses;
 import Models.XmlRobi;
 
 import javax.servlet.ServletException;
@@ -21,12 +22,6 @@ public class Robi extends HttpServlet {
         XmlRobi rdata = RequestParsers.getXmlRobi(req, resp, out);
         if (rdata == null) return;
 
-        System.out.println(rdata.getAmountt());
-        System.out.println(rdata.getPaymentfrom());
-        System.out.println(rdata.getPaymentto());
-        System.out.println(rdata.getTransactionid());
-
-        out.println("<response><res>Top-up Success</res></response>");
-        out.close();
+        Responses.sendXML(resp, out, rdata.getRes());
     }
 }

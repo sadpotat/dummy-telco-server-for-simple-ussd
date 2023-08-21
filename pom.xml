@@ -12,6 +12,8 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Use the latest version whenever possible. -->
+        <jackson.version>2.15.0</jackson.version>
     </properties>
 
     <repositories>
@@ -20,6 +22,8 @@
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
     </repositories>
+
+
 
     <dependencies>
         <dependency>
@@ -41,17 +45,27 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.15.0</version> <!-- Use the latest version -->
+            <version>${jackson.version}</version> <!-- Use the latest version -->
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.15.0</version>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.15.0</version>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
     </dependencies>

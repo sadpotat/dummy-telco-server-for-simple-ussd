@@ -1,26 +1,23 @@
 package Models;
 
+import Responses.XmlTTRes;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 
 @JacksonXmlRootElement(localName = "XmlTT")
 public class XmlTT {
+    @JacksonXmlProperty(localName = "topupid")
     private String topUpId;
+    @JacksonXmlProperty(localName = "sender")
     private String senderr;
+    @JacksonXmlProperty(localName = "target")
     private String targett;
+    @JacksonXmlProperty(localName = "topup")
     private String topUp;
-    @JsonCreator
-    public XmlTT( @JsonProperty("topupid") String transactionid,
-                    @JsonProperty("sender") String paymentfrom,
-                    @JsonProperty("target") String paymentto,
-                    @JsonProperty("topup") String amount) {
-        topUpId = transactionid;
-        senderr = paymentfrom;
-        targett = paymentto;
-        topUp = amount;
-    }
+    private XmlTTRes res;
 
     public String getTopUpId() {
         return topUpId;
@@ -52,6 +49,14 @@ public class XmlTT {
 
     public void setTopUp(String topUp) {
         this.topUp = topUp;
+    }
+
+    public XmlTTRes getRes() {
+        return res;
+    }
+
+    public void setRes(XmlTTRes res) {
+        this.res = res;
     }
 
     public boolean hasNull() {

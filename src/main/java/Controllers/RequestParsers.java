@@ -5,7 +5,9 @@ import Responses.JsonBLRes;
 import Models.JsonGP;
 import Responses.JsonGPRes;
 import Models.XmlRobi;
+import Responses.XmlRobiRes;
 import Models.XmlTT;
+import Responses.XmlTTRes;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.gson.Gson;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 
@@ -102,61 +103,76 @@ public class RequestParsers {
                 }
             }
             res.setTrackingID(rdata.getTrackingid()==null ? "missing": rdata.getTrackingid());
+            res.setTime(ZonedDateTime.now());
+            rdata.setRes(res);
+            return rdata;
+
         } catch (Exception e){
             Responses.internalServerError(resp, out);
             return null;
         }
-        res.setTime(ZonedDateTime.now());
-        rdata.setRes(res);
-        return rdata;
     }
 
     public static XmlRobi getXmlRobi(HttpServletRequest req, HttpServletResponse resp, PrintWriter out) {
+        // note that getXml methods throw internal server errors when a tag is spelled wrong
+        // fix later
+
+        XmlRobi rdata = new XmlRobi();
+        XmlRobiRes res = new XmlRobiRes();
         try{
             String data = getReqBody(req);
+            res.setRespStr("Top-up Success");
+            res.setSuccessStr("Yes");
             if (!data.startsWith("<") || !data.endsWith(">")){
-                out.println("Wrong request format. Please send in XML format");
-                out.close();
-                return null;
-            }
+                res.setRespStr("Wrong request format. Please send in XML format");
+                res.setSuccessStr("No");
+            } else {
+                // Step 1: Create an XMLMapper instance from Jackson
+                XmlMapper xmlMapper = new XmlMapper();
+                // Step 2: Parse the XML string into a Java object
+                rdata = xmlMapper.readValue(data, XmlRobi.class);
+                if(rdata.hasNull()){
+                    res.setRespStr("Missing keys");
+                    res.setSuccessStr("No");
+                }
 
-            // Step 1: Create an XMLMapper instance from Jackson
-            XmlMapper xmlMapper = new XmlMapper();
-            // Step 2: Parse the XML string into a Java object
-            XmlRobi rdata = xmlMapper.readValue(data, XmlRobi.class);
-            if( rdata.hasNull()){
-                out.println("Missing keys");
-                out.close();
-                return null;
             }
-
+            res.setTransactionID(rdata.getTransactionId()==null ? "missing": rdata.getTransactionId());
+            res.setLocaltimeStr(ZonedDateTime.now());
+            rdata.setRes(res);
             return rdata;
         } catch (Exception e){
             Responses.internalServerError(resp, out);
             return null;
         }
 
+
     }
 
     public static XmlTT getXmlTeletalk(HttpServletRequest req, HttpServletResponse resp, PrintWriter out) {
+        XmlTT rdata = new XmlTT();
+        XmlTTRes res = new XmlTTRes();
         try{
             String data = getReqBody(req);
+            res.setValStr("Recharged Successfully");
+            res.setTopUpStatus("complete");
             if (!data.startsWith("<") || !data.endsWith(">")){
-                out.println("Wrong request format. Please send in XML format");
-                out.close();
-                return null;
-            }
+                res.setValStr("Wrong request format. Please send in XML format");
+                res.setTopUpStatus("incomplete");
+            } else {
+                // Step 1: Create an XMLMapper instance from Jackson
+                XmlMapper xmlMapper = new XmlMapper();
+                // Step 2: Parse the XML string into a Java object
+                rdata = xmlMapper.readValue(data, XmlTT.class);
+                if(rdata.hasNull()){
+                    res.setValStr("Missing keys");
+                    res.setTopUpStatus("incomplete");
+                }
 
-            // Step 1: Create an XMLMapper instance from Jackson
-            XmlMapper xmlMapper = new XmlMapper();
-            // Step 2: Parse the XML string into a Java object
-            XmlTT rdata = xmlMapper.readValue(data, XmlTT.class);
-            if( rdata.hasNull()){
-                out.println("Missing keys");
-                out.close();
-                return null;
             }
-
+            res.setTopUpID(rdata.getTopUpId()==null ? "missing": rdata.getTopUpId());
+            res.setModifiedStr(ZonedDateTime.now());
+            rdata.setRes(res);
             return rdata;
         } catch (Exception e){
             Responses.internalServerError(resp, out);
