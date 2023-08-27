@@ -1,7 +1,7 @@
 # dummy-telco-server-for-simple-ussd
 
-A dummy server that hosts the web APIs integrated in simple-mfs-ussd-java.
-
+A dummy server that hosts the web APIs integrated in [simple-mfs-ussd-java](https://github.com/sadpotat/simple-mfs-ussd-java.git).
+<!--
 ## URLS and request format
 ### Banglalink
 URL: `http://localhost:portNum/mybl`
@@ -85,3 +85,4 @@ URL: `http://localhost:6811/mytele`
 [//]: # (    <modified>27-08-2023 12:14:01</modified>)
 
 [//]: # (</XmlTTRes>)
+__!>
